@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="book" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\book.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="bookdb.Properties.Settings" SettingsPropertyName="bookConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.author" Member="authors">
+    <Type Name="author">
+      <Column Name="authorid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="fname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="author_authorisbn" Member="authorisbns" ThisKey="authorid" OtherKey="authorid" Type="authorisbn" />
+    </Type>
+  </Table>
+  <Table Name="dbo.authorisbn" Member="authorisbns">
+    <Type Name="authorisbn">
+      <Column Name="authorid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="isbn" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="author_authorisbn" Member="author" ThisKey="authorid" OtherKey="authorid" Type="author" IsForeignKey="true" />
+      <Association Name="title_authorisbn" Member="title" ThisKey="isbn" OtherKey="isbn" Type="title" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.titles" Member="titles">
+    <Type Name="title">
+      <Column Name="isbn" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Member="title1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="edition_num" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="copyright" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="title_authorisbn" Member="authorisbns" ThisKey="isbn" OtherKey="isbn" Type="authorisbn" />
+    </Type>
+  </Table>
+</Database>
